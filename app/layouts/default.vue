@@ -1,24 +1,15 @@
 <template>
-    <div class="h-full flex items-stretch gap-1 p-1">
-        <div class="flex-1 flex flex-col">
-            <div class="flex items-center px-4 gap-2">
-                <AppNavButton to="/" icon="i-lucide-layout-dashboard" label="Übersicht" />
-                <AppNavButton to="/animals" icon="i-lucide-dog" label="Tiere" />
-                <AppNavButton to="/pedigrees" icon="i-lucide-book-open" label="Ahnentafeln" />
-                <div class="flex-1"></div>
-                <AppNavButton to="/settings" icon="i-lucide-settings" label="Einstellungen" />
-            </div>
-            <div class="flex-1 bg-default rounded-xl overflow-hidden">
-                <slot></slot>
-            </div>
+    <div class="h-full flex flex-col p-1">
+        <div class="flex items-center px-4 gap-2 h-14">
+            <AppNavButton to="/" icon="i-lucide-layout-dashboard" tooltip="Übersicht" />
+            <AppNavButton to="/animals" icon="i-lucide-dog" tooltip="Tiere" />
+            <AppNavButton to="/pedigrees" icon="i-lucide-book-open" tooltip="Ahnentafeln" />
+            <div class="flex-1"></div>
+            <UColorModeSwitch />
+            <AppNavButton to="/settings" icon="i-lucide-settings" tooltip="Einstellungen" />
         </div>
-        <div class="w-[600px] flex flex-col">
-            <div class="flex items-center px-4 gap-2">
-                <span>AAAAAAAA</span>
-            </div>
-            <div class="flex-1 bg-default rounded-xl overflow-hidden">
-                <slot name="popup"></slot>
-            </div>
+        <div class="flex-1 bg-default rounded-lg overflow-auto">
+            <slot></slot>
         </div>
     </div>
 </template>

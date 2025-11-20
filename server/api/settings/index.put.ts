@@ -1,7 +1,7 @@
 import { sql } from 'drizzle-orm'
 import { z } from 'zod'
 
-const settingsSchema = z.object({
+const requestBodySchema = z.object({
     'margin.1.top': z.number().optional(),
     'margin.1.bottom': z.number().optional(),
     'margin.1.left': z.number().optional(),
@@ -17,11 +17,10 @@ const settingsSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-    const db = useDrizzle()
-    const body = await readValidatedBody(event, settingsSchema.parse)
-    const settings = Object.entries(body).map(([key, value]) => ({ key, value: JSON.stringify(value) }))
+    const requestBody = await readValidatedBody(event, requestBodySchema.parse)
+    const settings = Object.entries(requestBody).map(([key, value]) => ({ key, value: JSON.stringify(value) }))
 
-    await db
+    await useDrizzle()
     .insert(tables.settings)
     .values(settings)
     .onConflictDoUpdate({

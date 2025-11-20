@@ -1,13 +1,16 @@
 <template>
-    <NuxtLink :to="to" class="app-nav-button">
-        <UIcon :name="icon" class="size-6" />
-        <span>{{ label }}</span>
-    </NuxtLink>
+    <UTooltip arrow :text="tooltip">
+        <NuxtLink :to="to" class="app-nav-button rounded-t-lg">
+            <UIcon :name="icon" class="size-6" />
+            <div class="corner left"></div>
+            <div class="corner right"></div>
+        </NuxtLink>
+    </UTooltip>
 </template>
 
 <script lang="ts" setup>
     defineProps({
-        label: {
+        tooltip: {
             type: String,
             required: true
         },
@@ -23,18 +26,51 @@
 
 <style lang="sass" scoped>
     .app-nav-button
+        position: relative
         display: flex
         flex-direction: column
         justify-content: center
         align-items: center
-        border-radius: .5rem .5rem 0 0
-        height: 3.5rem
-        width: 5.5rem
+        height: 100%
+        aspect-ratio: 1
 
         &.router-link-active
             background: var(--ui-bg)
+            color: var(--ui-primary)
 
-        > span
-            font-size: 0.75rem
-            color: var(--color-text-secondary)
+            .corner
+                opacity: 1
+
+        &:focus
+            outline: 2px solid var(--ui-primary)
+            outline-offset: -2px
+            background: var(--ui-bg)
+
+        .corner
+            position: absolute
+            width: calc(var(--ui-radius) * 2)
+            height: calc(var(--ui-radius) * 2)
+            overflow: hidden
+            pointer-events: none
+            bottom: 0
+            opacity: 0
+
+            &::after
+                content: ''
+                position: absolute
+                top: -100%
+                width: 200%
+                height: 200%
+                border-radius: 50%
+                box-shadow: 0 0 0 100rem var(--ui-bg)
+
+            &.left
+                right: 100%
+                &::after
+                    left: -100%
+
+            &.right
+                left: 100%
+                &::after
+                    right: -100%
 </style>

@@ -4,7 +4,7 @@
 @theme {
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    --color-primary: var(--color-sky-500);
+    --ui-primary: var(--color-indigo-500);
 }
 
 #__nuxt {

@@ -20,8 +20,8 @@ CREATE TABLE `animals` (
 	`pedigree_id` integer,
 	`mother_id` integer,
 	`father_id` integer,
-	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`created_at` integer DEFAULT (unixepoch()) NOT NULL,
+	`updated_at` integer DEFAULT (unixepoch()) NOT NULL,
 	FOREIGN KEY (`pedigree_id`) REFERENCES `pedigrees`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`mother_id`) REFERENCES `animals`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`father_id`) REFERENCES `animals`(`id`) ON UPDATE no action ON DELETE no action
@@ -32,8 +32,8 @@ CREATE TABLE `pedigrees` (
 	`title` text,
 	`kennel` text,
 	`address` text,
-	`created_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
-	`updated_at` integer DEFAULT (CURRENT_TIMESTAMP) NOT NULL
+	`created_at` integer DEFAULT (unixepoch()) NOT NULL,
+	`updated_at` integer DEFAULT (unixepoch()) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `settings` (

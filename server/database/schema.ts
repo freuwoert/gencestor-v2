@@ -11,8 +11,8 @@ export const pedigrees = sqliteTable('pedigrees', {
     title: text('title'),
     kennel: text('kennel'),
     address: text('address'),
-    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`).$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`).$onUpdate(() => new Date()),
 })
 
 // @ts-ignore
@@ -29,16 +29,16 @@ export const animals = sqliteTable('animals', {
     awardsLength3: text('awards_length_3'),
     awardsLength4: text('awards_length_4'),
     notes: text('notes'),
-    birthDate: text('birth_date'),
+    birthDate: integer('birth_date', { mode: 'timestamp' }),
     breed: text('breed'),
     sex: text('sex'),
     size: text('size'),
-    hair_type: text('hair_type'),
-    hair_color: text('hair_color'),
+    hairType: text('hair_type'),
+    hairColor: text('hair_color'),
     pedigreeId: integer('pedigree_id').references(() => pedigrees.id),
     // @ts-ignore
     motherId: integer('mother_id').references(() => animals.id),
     fatherId: integer('father_id').references(() => animals.id),
-    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(CURRENT_TIMESTAMP)`).$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`).$onUpdate(() => new Date()),
 })

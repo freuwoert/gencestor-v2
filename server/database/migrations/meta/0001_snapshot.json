@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "104763f0-a3e5-4d88-901e-b87c52a4ba75",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c7490141-51e7-4aae-8742-183bfc243a0d",
+  "prevId": "104763f0-a3e5-4d88-901e-b87c52a4ba75",
   "tables": {
     "animals": {
       "name": "animals",
@@ -94,7 +94,7 @@
         },
         "birth_date": {
           "name": "birth_date",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
