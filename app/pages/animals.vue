@@ -27,9 +27,11 @@
                     <span v-else>—</span>
                 </template>
                 <template #action-cell="{ row }">
-                    <UDropdownMenu :items="getActions(row)" arrow>
-                        <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" aria-label="Aktionen" />
-                    </UDropdownMenu>
+                    <div class="flex items-center justify-end gap-1">
+                        <UDropdownMenu :items="getActions(row)" arrow>
+                            <UButton icon="i-lucide-ellipsis-vertical" size="sm" color="neutral" variant="subtle" aria-label="Aktionen" />
+                        </UDropdownMenu>
+                    </div>
                 </template>
             </UTable>
         </UContextMenu>

@@ -1,31 +1,25 @@
 <template>
-    <UInputMenu
-        :items="items"
-        value-key="id"
-        label-key="displayName"
-        open-on-focus
-        reset-search-term-on-blur
-        :filter-fields="['displayName', 'chipNumber', 'studbookNumber']"
-        v-model:search-term="searchTerm"
-        v-model:open="isOpen"
-        v-model="modelValue"
-        @blur="isOpen = false"
-    >
-        <template #item-label="{ item }">
-            <div class="flex gap-2 items-center">
-                <AppSexIcon :sex="item.sex" class="size-8" />
-                <div class="flex flex-col">
-                    <b>{{ item.displayName }}</b>
-                    <span class="text-xs text-muted">Chip: <b>{{ item.chipNumber || '—' }}</b></span>
-                    <span class="text-xs text-muted">ZB: <b>{{ item.studbookNumber || '—' }}</b></span>
-                </div>
-            </div>
+    <UPopover arrow v-model:open="open">
+        <slot></slot>
+        <template #content>
+            <UCommandPalette :placeholder="props.placeholder" :groups="groups" :loading="status === 'pending'" v-model:search-term="searchTerm" autofocus @update:model-value="select">
+                <template #item-label="{ item }">
+                    <div class="flex gap-2 items-center">
+                        <AppSexIcon :sex="item.sex" class="size-8" />
+                        <div class="flex flex-col">
+                            <span>{{ conditionalReverse([item.name, item.kennel], item.kennelNameFirst).join(' ') }}</span>
+                            <span class="text-xs text-muted">Chip: <b>{{ item.chipNumber || '—' }}</b> ZB: <b>{{ item.studbookNumber || '—' }}</b></span>
+                        </div>
+                    </div>
+                </template>
+            </UCommandPalette>
         </template>
-    </UInputMenu>
+    </UPopover>
 </template>
 
 <script lang="ts" setup>
-    const modelValue = defineModel<Animal | null>({ default: null })
+    import { refDebounced } from '@vueuse/core'
+
     const props = defineProps({
         sex: {
             type: Array as () => ('male' | 'female' | 'unknown')[],
@@ -35,30 +29,44 @@
             type: Array as () => number[],
             default: () => [],
         },
+        placeholder: {
+            type: String,
+            default: 'Tiere suchen...',
+        },
     })
 
-    const isOpen = ref(false)
+    const emit = defineEmits([
+        'select',
+        'close',
+    ])
+
+    const open = ref(false)
     const searchTerm = ref('')
-    const items = ref<Animal[]>([])
+    const searchTermDebounced = refDebounced(searchTerm, 200)
 
-    async function fetch() {
-        const { items: data } = await $fetch('/api/animals', {
-            method: 'GET',
-            query: {
-                query: searchTerm.value,
-                sex: props.sex,
-                exclude: [-1, -1, ...props.exclude].filter(Boolean),
-                size: 100,
-            },
-        })
+    const { data: items, status } = await useFetch('/api/animals', {
+        query: {
+            query: searchTermDebounced,
+            sex: props.sex,
+            exclude: [-1, -1, ...props.exclude].filter(Boolean),
+            size: 100,
+        },
+        transform: (data: any) => data?.items,
+        lazy: true,
+    })
 
-        items.value = data.map((item: any) => ({
-            ...item,
-            displayName: conditionalReverse([item.name, item.kennel], item.kennelNameFirst).join(' '),
-        }))
+    const groups = computed(() => [{
+        id: 'animals',
+        items: items.value || [],
+        ignoreFilter: true
+    }])
+
+    function select(animal: any) {
+        emit('select', animal as Animal)
+        searchTerm.value = ''
+        open.value = false
+        emit('close')
     }
-
-    watch(searchTerm, () => fetch(), { immediate: true } )
 </script>
 
 <style lang="sass" scoped>

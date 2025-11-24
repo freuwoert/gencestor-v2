@@ -8,7 +8,9 @@
             <AppNavButton to="/animals" icon="i-lucide-dog" tooltip="Tiere" />
             <AppNavButton to="/pedigrees" icon="i-lucide-book-open" tooltip="Ahnentafeln" />
             <div class="flex-1"></div>
-            <UColorModeButton size="lg"/>
+            <UTooltip arrow text="Wechseln Sie den Farbmodus">
+                <UColorModeButton size="lg"/>
+            </UTooltip>
             <USeparator class="ml-2 h-8" orientation="vertical" />
             <AppNavButton to="/settings" icon="i-lucide-settings" tooltip="Einstellungen" />
         </div>

@@ -13,9 +13,11 @@
         <UContextMenu :items="contextMenuItems" arrow>
             <UTable sticky :data="items" :columns="columns" @select="onSelect" @contextmenu="onContextMenu" class="flex-1">
                 <template #action-cell="{ row }">
-                    <UDropdownMenu :items="getActions(row)" arrow>
-                        <UButton icon="i-lucide-ellipsis-vertical" color="neutral" variant="ghost" aria-label="Aktionen" />
-                    </UDropdownMenu>
+                    <div class="flex items-center justify-end gap-1">
+                        <UDropdownMenu :items="getActions(row)" arrow>
+                            <UButton icon="i-lucide-ellipsis-vertical" size="sm" color="neutral" variant="subtle" aria-label="Aktionen" />
+                        </UDropdownMenu>
+                    </div>
                 </template>
             </UTable>
         </UContextMenu>

@@ -23,7 +23,6 @@ const requestBodySchema = z.object({
     size: z.string().max(255).optional().nullable(),
     hairType: z.string().max(255).optional().nullable(),
     hairColor: z.string().max(255).optional().nullable(),
-    pedigreeId: z.number().optional().nullable(),
     motherId: z.number().optional().nullable(),
     fatherId: z.number().optional().nullable(),
 })

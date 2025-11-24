@@ -8,12 +8,31 @@
 
 :root {
     --ui-primary: var(--color-indigo-500);
+    /* TODO: Blue 800 für prod */
 }
 
 .dark {
     --ui-primary: var(--color-indigo-400);
+    /* TODO: Blue 500 für prod */
 }
 
 #__nuxt {
     height: 100%;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--ui-text-muted);
+    border-radius: 3px;
+    background-clip: content-box;
+    border: 2px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    border: 0px solid transparent;
+    border-radius: 2px;
 }
