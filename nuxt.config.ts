@@ -1,4 +1,11 @@
 export default defineNuxtConfig({
+    nitro: {
+        serverAssets: [
+            { baseName: 'templates', dir: './assets/templates' },
+            { baseName: 'fonts', dir: './assets/fonts' },
+            { baseName: 'images', dir: './assets/images' },
+        ],
+    },
     modules: [
       '@nuxt/eslint',
       '@nuxt/test-utils',
