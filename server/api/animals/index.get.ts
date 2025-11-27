@@ -3,8 +3,10 @@ import { z } from 'zod'
 
 const requestQuerySchema = z.object({
     query: z.string().max(100).optional(),
-    sex: z.array(z.enum(['male', 'female', 'unknown'])).optional(),
-    exclude: z.array(z.coerce.number()).optional(),
+    sex: z.union([z.enum(['male', 'female', 'unknown']), z.array(z.enum(['male', 'female', 'unknown']))]).optional()
+        .transform((val) => val === undefined ? undefined : (Array.isArray(val) ? val : [val])),
+    exclude: z.union([z.coerce.number(), z.array(z.coerce.number())]).optional()
+        .transform((val) => val === undefined ? undefined : (Array.isArray(val) ? val : [val])),
     page: z.coerce.number().min(0).default(0),
     size: z.coerce.number().min(1).max(500).default(50),
 })
@@ -14,7 +16,7 @@ export default defineEventHandler(async (event) => {
     const dbQuery = []
 
     if (requestQuery.query) {
-        // TODO: Fuzzy search
+        // TODO: Joint search on name and kennel respecting kennelNameFirst setting
         dbQuery.push(or(
             like(tables.animals.name, `%${requestQuery.query}%`),
             like(tables.animals.kennel, `%${requestQuery.query}%`),

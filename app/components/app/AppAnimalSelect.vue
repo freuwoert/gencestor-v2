@@ -2,7 +2,7 @@
     <UPopover arrow v-model:open="open">
         <slot></slot>
         <template #content>
-            <UCommandPalette :placeholder="props.placeholder" :groups="groups" :loading="status === 'pending'" v-model:search-term="searchTerm" autofocus @update:model-value="select">
+            <UCommandPalette :placeholder="props.placeholder" :groups="groups" :loading="isLoading" v-model:search-term="searchTerm" autofocus @update:model-value="select">
                 <template #item-label="{ item }">
                     <div class="flex gap-2 items-center">
                         <AppSexIcon :sex="item.sex" class="size-8" />
@@ -41,19 +41,26 @@
     ])
 
     const open = ref(false)
+    const isLoading = ref(false)
     const searchTerm = ref('')
+    const items = ref<any[]>([])
     const searchTermDebounced = refDebounced(searchTerm, 200)
 
-    const { data: items, status } = await useFetch('/api/animals', {
-        query: {
-            query: searchTermDebounced,
-            sex: props.sex,
-            exclude: [-1, -1, ...props.exclude].filter(Boolean),
-            size: 100,
-        },
-        transform: (data: any) => data?.items,
-        lazy: true,
-    })
+    async function fetch() {
+        isLoading.value = true
+        const { items: data } = await $fetch('/api/animals', {
+            method: 'GET',
+            params: {
+                query: searchTermDebounced.value,
+                sex: props.sex,
+                exclude: props.exclude,
+                size: 100,
+            }
+        })
+        items.value = data as any[]
+        isLoading.value = false
+    }
+    watch(searchTermDebounced, fetch, { immediate: true })
 
     const groups = computed(() => [{
         id: 'animals',

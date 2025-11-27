@@ -1,699 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${data?.litter?.name || ""} - ${data?.kennel || ""}</title>
-    </head>
-    <body>
-        <main>
-            <section class="page-front-left">
-                <div class="inner-page border">
-                    <h2 class="text-center">Liebe Hundebesitzerin, lieber Hundebesitzer,</h3>
-                    <p class="text-justify">
-                        Der Deutsche Rassehunde Verband e.V. (DRV e.V.) möchte Sie als stolzen
-                        Hundebesitzer recht herzlich beglückwünschen.
-                    </p>
-                    <p class="text-justify">
-                        Sicherlich werden Sie mit Ihrem „vierbeinigen Freund“ viel Freude haben
-                        und viele schöne gemeinsame Stunden erleben; vielleicht werden Sie sogar
-                        darüber hinaus mit ihm große Erfolge erringen.
-                    </p>
-                    <p class="text-justify">
-                        Dabei und auch bei allen Belangen der Aufzucht, der Hundehaltung und
-                        Hundezucht möchte Ihnen der DRV e.V. gern behilflich sein. Durch unsere
-                        jahrzehntelange Erfahrung mit Hunden stehen Ihnen bei Ihren großen oder
-                        kleinen Problemen unsere kompetenten Fachleute gern zur Seite.
-                    </p>
-                    <p class="text-justify">
-                        Bitte beachten Sie auch, dass Ihr Hund ein Lebewesen ist, welches gerade in
-                        der Jugend Ihre Hilfe und Zuneigung benötigt. Wenn Sie Geduld mit ihm
-                        haben und stets liebevoll mit ihm umgehen, wird er es Ihnen sein ganzes
-                        Leben lang mit Treue und Liebe danken.
-                    </p>
-                    <p class="text-justify">
-                        In Ihren Unterlagen befindet sich gewiss ein Mitgliedsantrag zu unserem
-                        Rassehunde Verband. Füllen Sie diesen bitte vollständig aus und senden ihn
-                        unterzeichnet im Original an uns zurück. Vielen Dank!
-                    </p>
-                    <p class="text-center">
-                        Mit freundlicher Empfehlung Ihr
-                        <img src="${assets?.images?.fcm_logo}" style="height: 16mm; margin-left: 16mm; vertical-align: middle;">
-                    </p>
-                    <h3 class="text-center">Deutscher Rassehunde Verband e.V. (DRV)</h3>
-                    <p class="text-center" style="margin-top: 1mm;">
-                        Hauptgeschäftsstelle: Heerklinke 15 ~ 38259 Salzgitter<br>
-                        Zuchtbuchamt: Hinter den Gärten 1 ~ 38729 Langelsheim<br>
-                        Tel: 05341 – 2934395 ~ drvev@mail.de ~ www.drvev.de
-                    </p>
-                    <div class="separator"></div>
-                    <p>
-                        <b>Bemerkungen:</b><br>
-                        ${data?.notes || ""}
-                    </p>
+<main>
+    <section class="page-front-left">
+        <div class="inner-page border">
+            <h2 class="text-center">Liebe Hundebesitzerin, lieber Hundebesitzer,</h3>
+            <p class="text-justify">
+                Der Deutsche Rassehunde Verband e.V. (DRV e.V.) möchte Sie als stolzen
+                Hunde-besitzer recht herzlich beglückwünschen.
+            </p>
+            <p class="text-justify">
+                Sicherlich werden Sie mit Ihrem „vierbeinigen Freund“ viel Freude haben
+                und viele schöne gemeinsame Stunden erleben; vielleicht werden Sie sogar
+                darüber hinaus mit ihm große Erfolge erringen.
+            </p>
+            <p class="text-justify">
+                Dabei und auch bei allen Belangen der Aufzucht, der Hundehaltung und
+                Hundezucht möchte Ihnen der DRV e.V. gern behilflich sein. Durch unsere
+                jahrzehntelange Erfahrung mit Hunden stehen Ihnen bei Ihren großen oder
+                kleinen Problemen unsere kompetenten Fachleute gern zur Seite.
+            </p>
+            <p class="text-justify">
+                Bitte beachten Sie auch, dass Ihr Hund ein Lebewesen ist, welches gerade in
+                der Jugend Ihre Hilfe und Zuneigung benötigt. Wenn Sie Geduld mit ihm
+                haben und stets liebevoll mit ihm umgehen, wird er es Ihnen sein ganzes
+                Leben lang mit Treue und Liebe danken.
+            </p>
+            <p class="text-justify">
+                In Ihren Unterlagen befindet sich gewiss ein Mitgliedsantrag zu unserem
+                Rasse-hunde Verband. Füllen Sie diesen bitte vollständig aus und senden ihn
+                unterzeichnet im Original an uns zurück. Vielen Dank!
+            </p>
+            <p class="text-center">
+                Mit freundlicher Empfehlung Ihr
+                <img src="${assets?.images?.drv_logo}" style="height: 16mm; margin-left: 16mm; vertical-align: middle;">
+            </p>
+            <h3 class="text-center" style="margin-top: 7mm;">Deutscher Rassehunde Verband e.V. (DRV)</h3>
+            <p class="text-center" style="margin-top: 1mm;">
+                Hauptgeschäftsstelle: Hinter den Gärten 1 ~ 38729 Langelsheim<br>
+                Tel: 05341 – 2934395 ~ drvev@mail.de ~ www.drvev.de
+            </p>
+            <div class="separator"></div>
+            <p>
+                <b>Bemerkungen:</b><br>
+                ${data?.notes || ""}
+            </p>
+        </div>
+    </section>
+    <section class="page-front-right">
+        <div class="inner-page border">
+            <div class="header">
+                <h1 class="text-center">${data?.title || "Ahnenpass"}</h1>
+                <h2 class="text-center">${data?.subtitle || "Pedigree"}</h2>
+            </div>
+
+            <div class="grid">
+                <div class="breedLabel">
+                    <span>Rasse:</span><br>
+                    <small>Breed</small>
                 </div>
-            </section>
-            <section class="page-front-right">
-                <div class="inner-page border">
-                    <div class="header">
-                        <h1 class="text-center">Ahnenpass</h1>
-                        <h2 class="text-center">Pedigree</h2>
-                    </div>
-
-                    <div class="grid">
-                        <div class="breedLabel">
-                            <span>Rasse:</span><br>
-                            <small>Breed</small>
-                        </div>
-                        <div class="breedValue">
-                            <b>${data?.breed || ""}</b>
-                        </div>
-    
-                        <div class="nameLabel">
-                            <span>Name d. Hundes:</span><br>
-                            <small>Name of dog</small>
-                        </div>
-                        <div class="nameValue text-lg">
-                            <b>${data?.kennelNameFirst ? data?.kennel || '': data?.name || ''}</b><br>
-                            <b>${data?.kennelNameFirst ? data?.name || '': data?.kennel || ''}</b>
-                        </div>
-    
-                        <div class="dateLabel">
-                            <span>Wurftag:</span><br>
-                            <small>Date of birth</small>
-                        </div>
-                        <div class="dateValue">
-                            <b>${data?.birthDate || ""}</b>
-                        </div>
-
-                        <div class="litterLabel">
-                            <span>Wurfstärke:</span><br>
-                            <small>amount of puppies</small>
-                        </div>
-                        <div class="litterValue">
-                            <b>${data?.litter?.maleCount || 0} / ${data?.litter?.femaleCount || 0}</b>
-                        </div>
-
-                        <div class="sexLabel">
-                            <span>Geschlecht:</span><br>
-                            <small>Sex</small>
-                        </div>
-                        <div class="sexValue">
-                            <b>${data?.sex || ""}</b>
-                        </div>
-
-                        <div class="colorLabel">
-                            <span>Farbe:</span><br>
-                            <small>Colour</small>
-                        </div>
-                        <div class="colorValue">
-                            <b>${data?.color || ""}</b>
-                        </div>
-
-                        <div class="studbookLabel">
-                            <span>Zuchtbuch - Nr.:</span><br>
-                            <small>Studbook No.</small>
-                        </div>
-                        <div class="studbookValue text-lg">
-                            <b>${data?.studbookNumber || ""}</b>
-                        </div>
-    
-                        <div class="fcmLogo text-center">
-                            <img src="${assets?.images?.fcm_logo}" height="80">
-                        </div>
-    
-                        <div class="chipLabel">
-                            <span>Chip - Nr.:</span><br>
-                            <small>Microchip No.</small>
-                        </div>
-                        <div class="chipValue">
-                            <b>${data?.chipNumber || ""}</b>
-                        </div>
-
-                        <div class="addressLabel">
-                            <span>Züchter / Anschrift:</span><br>
-                            <small>Breeder / Address</small>
-                        </div>
-                        <div class="addressValue">
-                            <b>${data?.address || ""}</b>
-                        </div>
-                    </div>
-    
-                    <div class="footer">
-                        <small class="label">Für die Richtigkeit der Wurfangaben:</small>
-                        <div class="signatureLine"></div>
-                        <small class="signatureLabel text-center">Unterschrift des Züchters</small>
-                    </div>
+                <div class="breedValue">
+                    <b>${data?.breed || ""}</b>
                 </div>
-            </section>
-        </main>
-        <main>
-            <section class="page-back">
-                <div class="inner-page">
-                    <div class="header">
-                        <span>Rasse: <b>${data?.breed || ''}</b></span>
-                        <span>Name: <b>${data?.displayName || ''}</b></span>
-                        <span>Wurftag: <b>${data?.birthDate || ''}</b></span>
-                        <span>ZB-Nr.: <b>${data?.studbookNumber || ''}</b></span>
-                        <span>Chip-Nr.: <b>${data?.chipNumber || ''}</b></span>
-                    </div>
-                    <div class="grid border">
-                        <div class="genLabel gen-1 text-center">I. Eltern / Parents</div>
-                        <div class="genLabel gen-2 text-center">II. Großeltern / Grandparents</div>
-                        <div class="genLabel gen-3 text-center">III. Urgroßeltern / G. Grandparents</div>
-                        <div class="genLabel gen-4 text-center">IV. Ururgroßeltern / G.-G. Gr. Grandparents</div>
 
-                        <div class="cell gen-1 first-row" style="grid-area: m">
-                            <strong>${data?.father?.displayName || ''}</strong>
-                            <span>ZB-Nr.:</span>
-                            <b>${data?.father?.studbookNumber || ''}</b>
-                            <span>Chip-Nr.:</span>
-                            <b>${data?.father?.chipNumber || ''}</b>
-                            <span>Wurftag:</span>
-                            <b>${data?.father?.birthDate || ''}</b>
-                            <span>Farbe:</span>
-                            <b>${data?.father?.color || ''}</b>
-                            <span>Größe:</span>
-                            <b>${data?.father?.size || ''}</b>
-                            <span>${data?.father?.awardsLength1 || ''}</span>
-                        </div>
-                        <div class="cell gen-1" style="grid-area: f">
-                            <strong>${data?.mother?.displayName || ''}</strong>
-                            <span>ZB-Nr.:</span>
-                            <b>${data?.mother?.studbookNumber || ''}</b>
-                            <span>Chip-Nr.:</span>
-                            <b>${data?.mother?.chipNumber || ''}</b>
-                            <span>Wurftag:</span>
-                            <b>${data?.mother?.birthDate || ''}</b>
-                            <span>Farbe:</span>
-                            <b>${data?.mother?.color || ''}</b>
-                            <span>Größe:</span>
-                            <b>${data?.mother?.size || ''}</b>
-                            <span>${data?.mother?.awardsLength1 || ''}</span>
-                        </div>
-
-                        <div class="cell gen-2 first-row" style="grid-area: mm">
-                            <strong>${data?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.color || ''}</b>
-                            <b>${data?.father?.father?.chipNumber || ''}</b>
-                            <span>${data?.father?.father?.awardsLength2 || ''}</span>
-                        </div>
-                        <div class="cell gen-2" style="grid-area: mf">
-                            <strong>${data?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.color || ''}</b>
-                            <b>${data?.father?.mother?.chipNumber || ''}</b>
-                            <span>${data?.father?.mother?.awardsLength2 || ''}</span>
-                        </div>
-                        <div class="cell gen-2" style="grid-area: fm">
-                            <strong>${data?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.color || ''}</b>
-                            <b>${data?.mother?.father?.chipNumber || ''}</b>
-                            <span>${data?.mother?.father?.awardsLength2 || ''}</span>
-                        </div>
-                        <div class="cell gen-2" style="grid-area: ff">
-                            <strong>${data?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.color || ''}</b>
-                            <b>${data?.mother?.mother?.chipNumber || ''}</b>
-                            <span>${data?.mother?.mother?.awardsLength2 || ''}</span>
-                        </div>
-
-                        <div class="cell gen-3 first-row" style="grid-area: mmm">
-                            <strong>${data?.father?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.father?.color || ''}</b>
-                            <b>${data?.father?.father?.father?.chipNumber || ''}</b>
-                            <span>${data?.father?.father?.father?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: mmf">
-                            <strong>${data?.father?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.mother?.color || ''}</b>
-                            <b>${data?.father?.father?.mother?.chipNumber || ''}</b>
-                            <span>${data?.father?.father?.mother?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: mfm">
-                            <strong>${data?.father?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.father?.color || ''}</b>
-                            <b>${data?.father?.mother?.father?.chipNumber || ''}</b>
-                            <span>${data?.father?.mother?.father?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: mff">
-                            <strong>${data?.father?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.mother?.color || ''}</b>
-                            <b>${data?.father?.mother?.mother?.chipNumber || ''}</b>
-                            <span>${data?.father?.mother?.mother?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: fmm">
-                            <strong>${data?.mother?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.father?.color || ''}</b>
-                            <b>${data?.mother?.father?.father?.chipNumber || ''}</b>
-                            <span>${data?.mother?.father?.father?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: fmf">
-                            <strong>${data?.mother?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.mother?.color || ''}</b>
-                            <b>${data?.mother?.father?.mother?.chipNumber || ''}</b>
-                            <span>${data?.mother?.father?.mother?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: ffm">
-                            <strong>${data?.mother?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.father?.color || ''}</b>
-                            <b>${data?.mother?.mother?.father?.chipNumber || ''}</b>
-                            <span>${data?.mother?.mother?.father?.awardsLength3 || ''}</span>
-                        </div>
-                        <div class="cell gen-3" style="grid-area: fff">
-                            <strong>${data?.mother?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.color || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.chipNumber || ''}</b>
-                            <span>${data?.mother?.mother?.mother?.awardsLength3 || ''}</span>
-                        </div>
-
-                        <div class="cell gen-4 first-row" style="grid-area: mmmm">
-                            <strong>${data?.father?.father?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.father?.father?.color || ''}</b>
-                            <span>${data?.father?.father?.father?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mmmf">
-                            <strong>${data?.father?.father?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.father?.mother?.color || ''}</b>
-                            <span>${data?.father?.father?.father?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mmfm">
-                            <strong>${data?.father?.father?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.mother?.father?.color || ''}</b>
-                            <span>${data?.father?.father?.mother?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mmff">
-                            <strong>${data?.father?.father?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.father?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.father?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.father?.mother?.mother?.color || ''}</b>
-                            <span>${data?.father?.father?.mother?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mfmm">
-                            <strong>${data?.father?.mother?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.father?.father?.color || ''}</b>
-                            <span>${data?.father?.mother?.father?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mfmf">
-                            <strong>${data?.father?.mother?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.father?.mother?.color || ''}</b>
-                            <span>${data?.father?.mother?.father?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mffm">
-                            <strong>${data?.father?.mother?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.mother?.father?.color || ''}</b>
-                            <span>${data?.father?.mother?.mother?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: mfff">
-                            <strong>${data?.father?.mother?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.father?.mother?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.father?.mother?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.father?.mother?.mother?.mother?.color || ''}</b>
-                            <span>${data?.father?.mother?.mother?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        
-                        <div class="cell gen-4" style="grid-area: fmmm">
-                            <strong>${data?.mother?.father?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.father?.father?.color || ''}</b>
-                            <span>${data?.mother?.father?.father?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: fmmf">
-                            <strong>${data?.mother?.father?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.father?.mother?.color || ''}</b>
-                            <span>${data?.mother?.father?.father?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: fmfm">
-                            <strong>${data?.mother?.father?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.mother?.father?.color || ''}</b>
-                            <span>${data?.mother?.father?.mother?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: fmff">
-                            <strong>${data?.mother?.father?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.father?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.father?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.father?.mother?.mother?.color || ''}</b>
-                            <span>${data?.mother?.father?.mother?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: ffmm">
-                            <strong>${data?.mother?.mother?.father?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.father?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.father?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.father?.father?.color || ''}</b>
-                            <span>${data?.mother?.mother?.father?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: ffmf">
-                            <strong>${data?.mother?.mother?.father?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.father?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.father?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.father?.mother?.color || ''}</b>
-                            <span>${data?.mother?.mother?.father?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: fffm">
-                            <strong>${data?.mother?.mother?.mother?.father?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.mother?.father?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.father?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.father?.color || ''}</b>
-                            <span>${data?.mother?.mother?.mother?.father?.awardsLength4 || ''}</span>
-                        </div>
-                        <div class="cell gen-4" style="grid-area: ffff">
-                            <strong>${data?.mother?.mother?.mother?.mother?.displayName || ''}</strong>
-                            <b>${data?.mother?.mother?.mother?.mother?.studbookNumber || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.mother?.birthDate || ''}</b>
-                            <b>${data?.mother?.mother?.mother?.mother?.color || ''}</b>
-                            <span>${data?.mother?.mother?.mother?.mother?.awardsLength4 || ''}</span>
-                        </div>
-                    </div>
+                <div class="nameLabel">
+                    <span>Name d. Hundes:</span><br>
+                    <small>Name of dog</small>
                 </div>
-            </section>
-        </main>
-    </body>
-    <style>
-        @font-face {
-            font-family: "Matura MT Script Capitals";
-            src: url("${assets?.fonts?.headline}") format("truetype");
-            font-weight: 700;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: "Open Sans";
-            src: url("${assets?.fonts?.text}") format("truetype");
-            font-style: normal;
-        }
+                <div class="nameValue text-lg">
+                    <b>${data?.kennelNameFirst ? data?.kennel || '': data?.name || ''}</b><br>
+                    <b>${data?.kennelNameFirst ? data?.name || '': data?.kennel || ''}</b>
+                </div>
 
-        html {
-            height: 100%;
-            width: 100%;
-            margin: 0mm;
-            -webkit-print-color-adjust: exact;
-        }
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0mm;
-            font-family: "Open Sans", sans-serif;
-            line-height: 1.25;
-            font-weight: 500;
-        }
-        main {
-            display: flex;
-            height: 100%;
-            width: 100%;
-            page-break-after: always;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: "Matura MT Script Capitals", cursive;
-            font-weight: 700;
-            margin: 0mm;
-        }
-        h1 {
-            font-size: 36pt;
-        }
-        h2 {
-            font-size: 14pt;
-        }
-        h3 {
-            font-size: 12pt;
-        }
-        * {
-            box-sizing: border-box;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .text-justify {
-            text-align: justify;
-        }
-        .text-lg {
-            font-size: 1.25em;
-        }
-        small,
-        .text-sm {
-            font-size: .75em;
-        }
-        .flex-1 {
-            flex: 1;
-        }
-        .border {
-            image-rendering: pixelated;
-            border: 7mm solid transparent;
-            border-image: url("${assets?.images?.border}") 80 round;
-        }
-        .page-front-left,
-        .page-front-right,
-        .page-back {
-            flex: 1;
-            align-self: stretch;
-            overflow: hidden;
-        }
-        .inner-page {
-            height: 100%;
-            width: 100%;
-        }
-        
+                <div class="dateLabel">
+                    <span>Wurftag:</span><br>
+                    <small>Date of birth</small>
+                </div>
+                <div class="dateValue">
+                    <b>${data?.birthDate || ""}</b>
+                </div>
 
+                <div class="litterLabel">
+                    <span>Wurfstärke:</span><br>
+                    <small>Litter size</small>
+                </div>
+                <div class="litterValue">
+                    <b>${data?.litterMaleCount || 0} / ${data?.litterFemaleCount || 0}</b>
+                </div>
 
-        .page-front-left {
-            margin-top: 5mm;
-            margin-right: 12mm;
-            margin-bottom: 5mm;
-            margin-left: 5mm;
-            font-size: 9pt;
-        }
-        .page-front-left .separator {
-            display: block;
-            height: 1mm;
-            border-top: 1pt solid black;
-            border-bottom: 1pt solid black;
-        }
-        
+                <div class="sexLabel">
+                    <span>Geschlecht:</span><br>
+                    <small>Sex</small>
+                </div>
+                <div class="sexValue">
+                    <b>${data?.sex || ""}</b>
+                </div>
 
+                <div class="colorLabel">
+                    <span>Farbe:</span><br>
+                    <small>Color</small>
+                </div>
+                <div class="colorValue">
+                    <b>${data?.hairColor || ""}</b>
+                </div>
 
-        .page-front-right {
-            margin-top: 5mm;
-            margin-right: 5mm;
-            margin-bottom: 5mm;
-            margin-left: 4mm;
-            font-size: 11pt;
-        }
-        .page-front-right .inner-page {
-            display: flex;
-            flex-direction: column;
-        }
-        .page-front-right .header {
-            margin-bottom: 7mm;
-        }
-        .page-front-right .grid {
-            margin-bottom: auto;
-            display: grid;
-            grid-template-columns: 40mm 1fr 32mm 13mm;
-            grid-template-rows: auto auto auto auto auto auto auto auto;
-            grid-row-gap: 7mm;
-            grid-template-areas:
-            "breedLabel breedValue breedValue breedValue"
-            "nameLabel nameValue nameValue nameValue"
-            "dateLabel dateValue amountLabel amountValue"
-            "sexLabel sexValue sexValue sexValue"
-            "colorLabel colorValue colorValue colorValue"
-            "studbookLabel studbookValue fcmLogo fcmLogo"
-            "chipLabel chipValue fcmLogo fcmLogo"
-            "addressLabel addressValue addressValue addressValue";
-        }
-        .page-front-right .breedLabel { grid-area: breedLabel; }
-        .page-front-right .breedValue { grid-area: breedValue; }
-        .page-front-right .nameLabel { grid-area: nameLabel; }
-        .page-front-right .nameValue { grid-area: nameValue; }
-        .page-front-right .dateLabel { grid-area: dateLabel; }
-        .page-front-right .dateValue { grid-area: dateValue; }
-        .page-front-right .litterLabel { grid-area: amountLabel; }
-        .page-front-right .litterValue { grid-area: amountValue; }
-        .page-front-right .sexLabel { grid-area: sexLabel; }
-        .page-front-right .sexValue { grid-area: sexValue; }
-        .page-front-right .colorLabel { grid-area: colorLabel; }
-        .page-front-right .colorValue { grid-area: colorValue; }
-        .page-front-right .studbookLabel { grid-area: studbookLabel; }
-        .page-front-right .studbookValue { grid-area: studbookValue; }
-        .page-front-right .fcmLogo { grid-area: fcmLogo; }
-        .page-front-right .chipLabel { grid-area: chipLabel; }
-        .page-front-right .chipValue { grid-area: chipValue; }
-        .page-front-right .addressLabel { grid-area: addressLabel; }
-        .page-front-right .addressValue { grid-area: addressValue; }
-        .page-front-right .footer {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            grid-template-rows: auto auto;
-            gap: 1mm;
-            align-items: end;
-            grid-template-areas:
-            "label signatureLine"
-            ". signatureLabel";
-            margin-bottom: -2mm;
-        }
-        .page-front-right .footer .label {
-            grid-area: label;
-        }
-        .page-front-right .footer .signatureLine {
-            grid-area: signatureLine;
-            border-bottom: 1pt solid black;
-        }
-        .page-front-right .footer .signatureLabel {
-            grid-area: signatureLabel;
-        }
+                <div class="studbookLabel">
+                    <span>Zuchtbuch - Nr.:</span><br>
+                    <small>Studbook No.</small>
+                </div>
+                <div class="studbookValue text-lg">
+                    <b>${data?.studbookNumber || ""}</b>
+                </div>
 
+                <div class="fcmLogo text-center">
+                    <img src="${assets?.images?.fcm_logo}" height="80">
+                </div>
 
+                <div class="chipLabel">
+                    <span>Chip - Nr.:</span><br>
+                    <small>Microchip No.</small>
+                </div>
+                <div class="chipValue">
+                    <b>${data?.chipNumber || ""}</b>
+                </div>
 
-        .page-back {
-            margin-top: 5mm;
-            margin-right: 5mm;
-            margin-bottom: 5mm;
-            margin-left: 5mm;
-            font-size: 9pt;
-        }
-        .page-back .inner-page {
-            display: flex;
-            flex-direction: column;
-        }
-        .page-back .header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5mm;
-            padding-inline: 7mm;
-        }
-        .page-back .grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: 0mm repeat(16, 1fr);
-            grid-template-areas:
-            "l1 l2 l3 l4"
-            "m mm mmm mmmm"
-            "m mm mmm mmmf"
-            "m mm mmf mmfm"
-            "m mm mmf mmff"
-            "m mf mfm mfmm"
-            "m mf mfm mfmf"
-            "m mf mff mffm"
-            "m mf mff mfff"
-            "f fm fmm fmmm"
-            "f fm fmm fmmf"
-            "f fm fmf fmfm"
-            "f fm fmf fmff"
-            "f ff ffm ffmm"
-            "f ff ffm ffmf"
-            "f ff fff fffm"
-            "f ff fff ffff";
-        }
-        .page-back .genLabel {
-            color: gray;
-            transform: translateY(-5mm);
-        }
-        .page-back .cell {
-            border-top: 1pt solid black;
-            border-left: 1pt solid black;
-            padding: 1mm;
-            font-size: 8pt;
-            line-height: 1.25;
-        }
-        .page-back .cell.first-row {
-            border-top: none;
-        }
-        .page-back .cell.gen-1 {
-            border-left: none;
-            display: grid;
-            grid-auto-rows: min-content;
-            grid-template-columns: 18mm 1fr;
-        }
-        .page-back .cell.gen-1 > strong {
-            font-size: 1.25em;
-            grid-column: span 2;
-            margin-bottom: 2mm;
-        }
-        .page-back .cell.gen-1 > span:last-of-type {
-            grid-column: span 2;
-            margin-top: 2mm;
-        }
+                <div class="addressLabel">
+                    <span>Züchter / Anschrift:</span><br>
+                    <small>Breeder / Address</small>
+                </div>
+                <div class="addressValue">
+                    <b>${data?.address || ""}</b>
+                </div>
+            </div>
 
-        .page-back .cell.gen-2 {
-            display: grid;
-            grid-auto-rows: min-content;
-            grid-template-columns: 1fr auto;
-        }
-        .page-back .cell.gen-2 > strong {
-            font-size: 1.25em;
-            grid-column: span 2;
-            margin-bottom: 2mm;
-        }
-        .page-back .cell.gen-2 > span:last-of-type {
-            grid-column: span 2;
-            margin-top: 2mm;
-        }
-
-        .page-back .cell.gen-3 {
-            display: grid;
-            grid-auto-rows: min-content;
-            grid-template-columns: 1fr auto;
-            font-size: 7.5pt;
-        }
-        .page-back .cell.gen-3 > strong {
-            grid-column: span 2;
-        }
-        .page-back .cell.gen-3 > span:last-of-type {
-            grid-column: span 2;
-        }
-
-        .page-back .cell.gen-4 {
-            display: grid;
-            grid-auto-rows: min-content;
-            grid-template-columns: auto auto auto;
-            justify-content: space-between;
-            font-size: 7.5pt;
-            line-height: 1;
-        }
-        .page-back .cell.gen-4 > strong {
-            grid-column: span 3;
-        }
-        .page-back .cell.gen-4 > span:last-of-type {
-            grid-column: span 3;
-        }
-    </style>
-</html>
+            <div class="footer">
+                <small class="label">Für die Richtigkeit der Wurfangaben:</small>
+                <div class="signatureLine"></div>
+                <small class="signatureLabel text-center">Unterschrift des Züchters</small>
+            </div>
+        </div>
+    </section>
+</main>

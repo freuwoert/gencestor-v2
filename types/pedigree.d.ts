@@ -7,4 +7,10 @@ export type PedigreeResource = Pedigree & {
     father: AnimalResource | null
     motherId: number | null
     mother: AnimalResource | null
+    maleCount: number
+    femaleCount: number
+}
+
+export type PedigreeStructure = Omit<PedigreeResource, 'id'> & {
+    id: number | null
 }

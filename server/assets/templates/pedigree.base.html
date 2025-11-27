@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${data?.pedigreeName || ""} - ${data?.kennel || ""}</title>
+    </head>
+    <body>
+        ${data?.content || ""}
+    </body>
+    <style>
+        @font-face {
+            font-family: "Matura MT Script Capitals";
+            src: url("${assets?.fonts?.headline}") format("truetype");
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "Open Sans";
+            src: url("${assets?.fonts?.text}") format("truetype");
+            font-style: normal;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0mm;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0mm;
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.25;
+            font-weight: 400;
+        }
+        main {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            page-break-after: always;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Matura MT Script Capitals", cursive;
+            font-weight: 700;
+            margin: 0mm;
+        }
+        h1 {
+            font-size: 36pt;
+        }
+        h2 {
+            font-size: 14pt;
+        }
+        h3 {
+            font-size: 12pt;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        .text-lg {
+            font-size: 1.25em;
+        }
+        small,
+        .text-sm {
+            font-size: .75em;
+        }
+        .flex-1 {
+            flex: 1;
+        }
+        .border {
+            image-rendering: pixelated;
+            border: 7mm solid transparent;
+            border-image: url("${assets?.images?.border}") 80 round;
+        }
+        .page-front-left,
+        .page-front-right,
+        .page-back {
+            flex: 1;
+            align-self: stretch;
+            overflow: hidden;
+        }
+        .inner-page {
+            height: 100%;
+            width: 100%;
+        }
+        
+
+
+        .page-front-left {
+            margin-top: 5mm;
+            margin-right: 12mm;
+            margin-bottom: 5mm;
+            margin-left: 5mm;
+            font-size: 9pt;
+        }
+        .page-front-left .separator {
+            display: block;
+            height: 1mm;
+            border-top: 1pt solid black;
+            border-bottom: 1pt solid black;
+        }
+        
+
+
+        .page-front-right {
+            margin-top: 5mm;
+            margin-right: 5mm;
+            margin-bottom: 5mm;
+            margin-left: 4mm;
+            font-size: 11pt;
+        }
+        .page-front-right .inner-page {
+            display: flex;
+            flex-direction: column;
+        }
+        .page-front-right .header {
+            margin-bottom: 7mm;
+        }
+        .page-front-right .grid {
+            margin-bottom: auto;
+            display: grid;
+            line-height: 1.1;
+            grid-template-columns: 40mm 1fr 32mm 13mm;
+            grid-template-rows: auto auto auto auto auto auto auto auto;
+            grid-row-gap: 7mm;
+            grid-template-areas:
+            "breedLabel breedValue breedValue breedValue"
+            "nameLabel nameValue nameValue nameValue"
+            "dateLabel dateValue amountLabel amountValue"
+            "sexLabel sexValue sexValue sexValue"
+            "colorLabel colorValue colorValue colorValue"
+            "studbookLabel studbookValue fcmLogo fcmLogo"
+            "chipLabel chipValue fcmLogo fcmLogo"
+            "addressLabel addressValue addressValue addressValue";
+        }
+        .page-front-right .breedLabel { grid-area: breedLabel; }
+        .page-front-right .breedValue { grid-area: breedValue; }
+        .page-front-right .nameLabel { grid-area: nameLabel; }
+        .page-front-right .nameValue { grid-area: nameValue; }
+        .page-front-right .dateLabel { grid-area: dateLabel; }
+        .page-front-right .dateValue { grid-area: dateValue; }
+        .page-front-right .litterLabel { grid-area: amountLabel; }
+        .page-front-right .litterValue { grid-area: amountValue; }
+        .page-front-right .sexLabel { grid-area: sexLabel; }
+        .page-front-right .sexValue { grid-area: sexValue; }
+        .page-front-right .colorLabel { grid-area: colorLabel; }
+        .page-front-right .colorValue { grid-area: colorValue; }
+        .page-front-right .studbookLabel { grid-area: studbookLabel; }
+        .page-front-right .studbookValue { grid-area: studbookValue; }
+        .page-front-right .fcmLogo { grid-area: fcmLogo; }
+        .page-front-right .chipLabel { grid-area: chipLabel; }
+        .page-front-right .chipValue { grid-area: chipValue; }
+        .page-front-right .addressLabel { grid-area: addressLabel; }
+        .page-front-right .addressValue { grid-area: addressValue; }
+        .page-front-right .footer {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            gap: 1mm;
+            align-items: end;
+            grid-template-areas:
+            "label signatureLine"
+            ". signatureLabel";
+            margin-bottom: -2mm;
+        }
+        .page-front-right .footer .label {
+            grid-area: label;
+        }
+        .page-front-right .footer .signatureLine {
+            grid-area: signatureLine;
+            border-bottom: 1pt solid black;
+        }
+        .page-front-right .footer .signatureLabel {
+            grid-area: signatureLabel;
+        }
+
+
+
+        .page-back {
+            margin-top: 5mm;
+            margin-right: 5mm;
+            margin-bottom: 5mm;
+            margin-left: 5mm;
+            font-size: 9pt;
+        }
+        .page-back .inner-page {
+            display: flex;
+            flex-direction: column;
+        }
+        .page-back .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5mm;
+            padding-inline: 7mm;
+        }
+        .page-back .grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 0mm repeat(16, 1fr);
+            grid-template-areas:
+            "l1 l2 l3 l4"
+            "m mm mmm mmmm"
+            "m mm mmm mmmf"
+            "m mm mmf mmfm"
+            "m mm mmf mmff"
+            "m mf mfm mfmm"
+            "m mf mfm mfmf"
+            "m mf mff mffm"
+            "m mf mff mfff"
+            "f fm fmm fmmm"
+            "f fm fmm fmmf"
+            "f fm fmf fmfm"
+            "f fm fmf fmff"
+            "f ff ffm ffmm"
+            "f ff ffm ffmf"
+            "f ff fff fffm"
+            "f ff fff ffff";
+        }
+        .page-back .genLabel {
+            color: gray;
+            transform: translateY(-5mm);
+        }
+        .page-back .cell {
+            border-top: 1pt solid black;
+            border-left: 1pt solid black;
+            padding: 1mm;
+            font-size: 8pt;
+            line-height: 1.25;
+        }
+        .page-back .cell.first-row {
+            border-top: none;
+        }
+        .page-back .cell.gen-1 {
+            border-left: none;
+            display: grid;
+            grid-auto-rows: min-content;
+            grid-template-columns: 18mm 1fr;
+        }
+        .page-back .cell.gen-1 > strong {
+            font-size: 1.25em;
+            grid-column: span 2;
+            margin-bottom: 2mm;
+        }
+        .page-back .cell.gen-1 > span:last-of-type {
+            grid-column: span 2;
+            margin-top: 2mm;
+        }
+
+        .page-back .cell.gen-2 {
+            display: grid;
+            grid-auto-rows: min-content;
+            grid-template-columns: 1fr auto;
+        }
+        .page-back .cell.gen-2 > strong {
+            font-size: 1.25em;
+            grid-column: span 2;
+            margin-bottom: 2mm;
+        }
+        .page-back .cell.gen-2 > span:last-of-type {
+            grid-column: span 2;
+            margin-top: 2mm;
+        }
+
+        .page-back .cell.gen-3 {
+            display: grid;
+            grid-auto-rows: min-content;
+            grid-template-columns: 1fr auto;
+            font-size: 7.5pt;
+        }
+        .page-back .cell.gen-3 > strong {
+            grid-column: span 2;
+        }
+        .page-back .cell.gen-3 > span:last-of-type {
+            grid-column: span 2;
+        }
+
+        .page-back .cell.gen-4 {
+            display: grid;
+            grid-auto-rows: min-content;
+            grid-template-columns: auto auto auto;
+            justify-content: space-between;
+            font-size: 7.5pt;
+            line-height: 1;
+        }
+        .page-back .cell.gen-4 > strong {
+            grid-column: span 3;
+        }
+        .page-back .cell.gen-4 > span:last-of-type {
+            grid-column: span 3;
+        }
+    </style>
+</html>

@@ -1,7 +1,7 @@
 <template>
     <div class="h-full flex items-stretch">
         <div class="w-96 flex flex-col gap-4 p-4 border-r border-default">
-            <UInput v-model="form.title" variant="subtle" placeholder="Wurfname" />
+            <UInput v-model="form.title" placeholder="Wurfname" leading-icon="i-lucide-type" />
             <UInput v-model="form.kennel" placeholder="Zwinger" leading-icon="i-lucide-house">
                 <template #trailing>
                     <UTooltip arrow text="Zwingername zuerst">
@@ -13,47 +13,81 @@
             <UInput type="date" v-model="(form.birthDate as null)" leading-icon="i-lucide-calendar"/>
             <UTextarea v-model="form.address" placeholder="Züchter / Adresse" leading-icon="i-lucide-info" />
             <div class="flex-1"></div>
-            <UButton label="Speichern" icon="i-lucide-save" @click="save()" :loading="isLoading" />
+            <UButton label="Drucken" variant="subtle" icon="i-lucide-printer" @click="printPedigree.open(form)" :loading="isLoading" />
         </div>
-        <div class="flex-1 flex flex-col gap-4 p-4 overflow-auto">
-            <UFieldGroup class="ml-auto">
-                <UButton icon="i-lucide-plus" variant="subtle" @click="openEditPuppy()">Welpe erstellen</UButton>
-                <AppAnimalSelect @select="syncPuppy($event)">
-                    <UButton icon="i-lucide-search" variant="outline">Welpe suchen</UButton>
-                </AppAnimalSelect>
-            </UFieldGroup>
-            <UContextMenu :items="contextMenuItems" arrow>
-                <UTable class="min-h-120 rounded-lg border border-default" :data="form.animals" :columns="columns" @select="onSelect" @contextmenu="onContextMenu">
-                    <template #name-cell="{ row }">
-                        <div class="flex gap-3 items-center">
-                            <AppSexIcon class="w-8 h-8" :sex="row.original.sex" /> {{ row.original.name || '—' }}
+        <div class="h-full flex-1 flex flex-col gap-4 p-4 overflow-auto">
+            <UTabs :items="tabs" :ui="{root: 'h-full flex-1', content: 'h-full flex-1'}">
+                <template #puppies>
+                    <UContextMenu :items="contextMenuItems" arrow>
+                        <UTable class="h-full flex-1 rounded-lg border border-default" sticky :data="form.animals" :columns="columns" @select="onSelect" @contextmenu="onContextMenu">
+                            <template #name-cell="{ row }">
+                                <div class="flex gap-3 items-center">
+                                    <AppSexIcon class="w-8 h-8" :sex="row.original.sex" /> {{ row.original.name || '—' }}
+                                </div>
+                            </template>
+        
+                            <template #action-header>
+                                <div class="flex items-center gap-2 justify-end">
+                                    <UButton size="sm" icon="i-lucide-plus" variant="subtle" @click="openEditPuppy()">Neu</UButton>
+                                    <AppAnimalSelect @select="syncPuppy($event)" :exclude="form.animals.map((a: any) => a.id)">
+                                        <UButton size="sm" icon="i-lucide-search" variant="outline">Suchen</UButton>
+                                    </AppAnimalSelect>
+                                </div>
+                            </template>
+            
+                            <template #action-cell="{ row }">
+                                <div class="flex items-center justify-end gap-1">
+                                    <UButton icon="i-lucide-edit-2" size="sm" color="neutral" variant="subtle" aria-label="Bearbeiten" @click="openEditPuppy(row.original)"/>
+                                    <UButton icon="i-lucide-copy-plus" size="sm" color="neutral" variant="subtle" aria-label="Duplizieren" @click="openEditPuppy({ ...row.original, id: null })"/>
+                                    <USeparator orientation="vertical" class="h-8 mx-1"/>
+                                    <UButton icon="i-lucide-minus" size="sm" color="error" variant="subtle" aria-label="Entfernen" @click="removePuppy(row.original)"/>
+                                </div>
+                            </template>
+                        </UTable>
+                    </UContextMenu>
+                </template>
+                <template #family-tree>
+                    <div class="flex-1 flex flex-col gap-2 pl-4">
+                        <div class="flex-1 relative">
+                            <template v-if="form.father">
+                                <UButton class="rounded-full absolute top-1/2 -translate-y-1/2 -left-4" icon="i-lucide-unlink" size="xs" color="neutral" variant="outline" @click="form.fatherId = null"/>
+                                <AppTreeBuilder :animal="form.father" :generation="1" @edit="openEditParent" @assignParent="assignParent" @createParent="createParent" />
+                            </template>
+                            <UFieldGroup class="w-80" size="sm" v-else>
+                                <UButton class="flex-1" icon="i-lucide-plus" variant="subtle" @click="createParent({role: 'father', child: 'NONE'})">Vater erstellen</UButton>
+                                <AppAnimalSelect @select="assignParent({parent: $event, role: 'father', child: 'NONE'})" :sex="['male', 'unknown']">
+                                    <UButton class="flex-1" icon="i-lucide-search" variant="outline">Vater suchen</UButton>
+                                </AppAnimalSelect>
+                            </UFieldGroup>
                         </div>
-                    </template>
-    
-                    <template #action-cell="{ row }">
-                        <div class="flex items-center justify-end gap-1">
-                            <UButton icon="i-lucide-edit-2" size="sm" color="neutral" variant="subtle" aria-label="Bearbeiten" @click="openEditPuppy(row.original)"/>
-                            <UButton icon="i-lucide-copy-plus" size="sm" color="neutral" variant="subtle" aria-label="Duplizieren" @click="openEditPuppy({ ...row.original, id: null })"/>
-                            <USeparator orientation="vertical" class="h-8 mx-1"/>
-                            <UButton icon="i-lucide-minus" size="sm" color="error" variant="subtle" aria-label="Entfernen" @click="removePuppy(row.original)"/>
+                        <div class="flex-1 relative">
+                            <template v-if="form.mother">
+                                <UButton class="rounded-full absolute top-1/2 -translate-y-1/2 -left-4" icon="i-lucide-unlink" size="xs" color="neutral" variant="outline" @click="form.motherId = null"/>
+                                <AppTreeBuilder :animal="form.mother" :generation="1" @edit="openEditParent" @assignParent="assignParent" @createParent="createParent" />
+                            </template>
+                            <UFieldGroup class="w-80" size="sm" v-else>
+                                <UButton class="flex-1" icon="i-lucide-plus" variant="subtle" @click="createParent({role: 'mother', child: 'NONE'})">Mutter erstellen</UButton>
+                                <AppAnimalSelect @select="assignParent({parent: $event, role: 'mother', child: 'NONE'})" :sex="['female', 'unknown']">
+                                    <UButton class="flex-1" icon="i-lucide-search" variant="outline">Mutter suchen</UButton>
+                                </AppAnimalSelect>
+                            </UFieldGroup>
                         </div>
-                    </template>
-                </UTable>
-            </UContextMenu>
+                    </div>
+                </template>
+                <template #preview></template>
+            </UTabs>
 
-            <div class="flex flex-col gap-2">
-                <AppTreeBuilder class="flex-1" v-if="form.father" :animal="form.father" :generation="1" @edit="openEditParent" @assignParent="assignParent" @createParent="createParent" />
-                <AppTreeBuilder class="flex-1" v-if="form.mother" :animal="form.mother" :generation="1" @edit="openEditParent" @assignParent="assignParent" @createParent="createParent" />
-            </div>
         </div>
     </div>
 
 
     <SlideoverEditAnimal ref="editAnimal" />
+    <ModalPrintPedigree ref="printPedigree" />
 </template>
 
 <script lang="ts" setup>
     import dayjs from 'dayjs'
+    import { useDebounceFn } from '@vueuse/core'
     import type { Row } from '@tanstack/vue-table'
     import type { ContextMenuItem, TableColumn } from '@nuxt/ui'
     import type { PedigreeResource } from '~~/types/pedigree'
@@ -70,9 +104,50 @@
     
     const id = Number(useRoute().params.id)
     const isLoading = ref(false)
-    const form = ref<Partial<PedigreeResource>>({})
+    const formHash = ref('')
+    const form = ref<Partial<PedigreeResource>>({
+        title: '',
+        kennel: '',
+        address: '',
+        birthDate: null,
+        breed: '',
+        animals: [],
+        mother: null,
+        father: null,
+    })
+    const destilledForm = computed(() => ({
+        // Only keep the fields that matter for dirty checking
+        ...form.value,
+        animals: null,
+        mother: null,
+        father: null,
+        animalIds: form.value.animals?.map((a: AnimalResource) => a.id).sort() || [],
+    }))
+    const isDirty = computed(() => formHash.value !== JSON.stringify(destilledForm.value))
     const editAnimal = ref()
+    const printPedigree = ref()
     const animalDataStore = useAnimalDataStore()
+
+
+
+    const tabs = computed(() => [
+        {
+            label: 'Welpen',
+            icon: 'i-lucide-dog',
+            slot: 'puppies',
+        },
+        {
+            label: 'Stammbaum',
+            icon: 'i-lucide-network',
+            slot: 'family-tree',
+            disabled: form.value.animals.length <= 0,
+        },
+        {
+            label: 'Vorschau',
+            icon: 'i-lucide-eye',
+            slot: 'preview',
+        },
+    ])
 
 
 
@@ -135,7 +210,7 @@
     }
 
     function onSelect(_: Event, row: Row<AnimalResource>) {
-        editAnimal.value.open(row.original)
+        openEditPuppy(row.original)
     }
 
     function onCreateBreed(newBreed: string) {
@@ -181,15 +256,23 @@
         })
     }
 
-    async function assignParent(e: {parent: Partial<AnimalResource>, role: 'father' | 'mother', child: Partial<AnimalResource>}) {
-        await $fetch('/api/animals/'+e.child.id, {
-            method: 'PUT',
-            body: e.role === 'father' ? { fatherId: e.parent.id } : { motherId: e.parent.id },
-        })
+    async function assignParent(e: {parent: Partial<AnimalResource>, role: 'father' | 'mother', child: Partial<AnimalResource> | 'NONE'}) {
+        if (e.child === 'NONE') {
+            e.role === 'father'
+                ? form.value.fatherId = e.parent.id
+                : form.value.motherId = e.parent.id
+        }
+        else {
+            await $fetch('/api/animals/'+e.child.id, {
+                method: 'PUT',
+                body: e.role === 'father' ? { fatherId: e.parent.id } : { motherId: e.parent.id },
+            })
+        }
+
         await fetchTrees()
     }
 
-    function createParent(e: {role: 'father' | 'mother', child: Partial<AnimalResource>}) {
+    function createParent(e: {role: 'father' | 'mother', child: Partial<AnimalResource> | 'NONE'}) {
         editAnimal.value.open({
             sex: e.role === 'father' ? 'male' : 'female'
         }, (parent: Partial<AnimalResource>) => {
@@ -200,17 +283,10 @@
         })
     }
 
-    function reset() {
-        form.value = {
-            title: '',
-            kennel: '',
-            address: '',
-            birthDate: null,
-            breed: '',
-            animals: [],
-            mother: null,
-            father: null,
-        }
+
+
+    function cleanDirtyForm() {
+        formHash.value = JSON.stringify(destilledForm.value)
     }
 
     async function fetch() {
@@ -218,6 +294,8 @@
         await fetchPedigree()
         await fetchTrees()
         isLoading.value = false
+        
+        cleanDirtyForm()
     }
 
     async function fetchPedigree() {
@@ -236,6 +314,7 @@
 
     async function save() {
         isLoading.value = true
+        cleanDirtyForm()
         await $fetch('/api/pedigrees/'+id, {
             method: 'PUT',
             body: {
@@ -247,8 +326,16 @@
         })
         isLoading.value = false
     }
+    
+    const triggerAutoSave = useDebounceFn(async () => {
+        if (!isDirty.value) return
+        if (!formHash.value) return
+        if (isLoading.value) return
 
-    reset()
+        await save()
+    }, 1000)
+
+    watch(isDirty, triggerAutoSave)
     fetch()
 </script>
 

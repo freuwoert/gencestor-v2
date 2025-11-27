@@ -1,3 +1,4 @@
+import type { PedigreeResource } from "~~/types/pedigree"
 import { eq } from "drizzle-orm"
 import z from "zod"
 
@@ -26,5 +27,5 @@ export default defineEventHandler(async (event) => {
         birthDate: firstChild?.birthDate || null,
         maleCount: result.animals.filter(a => a.sex === 'male').length,
         femaleCount: result.animals.filter(a => a.sex === 'female').length,
-    }
+    } as PedigreeResource
 })

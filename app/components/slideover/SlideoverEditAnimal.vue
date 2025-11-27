@@ -3,13 +3,14 @@
         <template #body>
             <div class="flex flex-col">
                 <!-- TODO: Duplicate checker -->
+                <!-- TODO: Link to pedigree -->
                 
                 <template v-if="!hidden.includes('IDENTITY')">
                     <span class="mt-0 mb-2">Identität</span>
                     <div class="flex flex-col gap-4">
                         <div class="flex gap-2 items-center" :class="{'flex-row-reverse': form.kennelNameFirst}">
                             <UInput class="flex-1" v-model="form.name" placeholder="Name" leading-icon="i-lucide-tag" :autofocus="!form.kennelNameFirst" :disabled="disabled.includes('name')" v-if="!hidden.includes('name')"/>
-                            <UButton @click="form.kennelNameFirst = !form.kennelNameFirst" color="neutral" variant="ghost" icon="i-lucide-arrow-right-left" />
+                            <UButton @click="form.kennelNameFirst = !form.kennelNameFirst" color="neutral" variant="ghost" icon="i-lucide-arrow-right-left" :disabled="disabled.includes('kennelNameFirst')"/>
                             <UInput class="flex-1" v-model="form.kennel" placeholder="Zwinger" leading-icon="i-lucide-house" :autofocus="form.kennelNameFirst" :disabled="disabled.includes('kennel')" v-if="!hidden.includes('kennel')"/>
                         </div>
                         <UInput v-model="form.chipNumber" placeholder="Chipnummer" leading-icon="i-lucide-cpu" :disabled="disabled.includes('chipNumber')" v-if="!hidden.includes('chipNumber')"/>
@@ -117,7 +118,7 @@
     import dayjs from 'dayjs'
     import type { AnimalStructure } from '~~/types/animal'
     type SaveMode = 'stayOpen' | 'createNew' | 'createDuplicate'
-    type SlideoverField = 'IDENTITY' | 'BIRTH' | 'PARENTS' | 'APPEARANCE' | 'NOTES' | 'ACTIONS' | 'name' | 'kennel' | 'chipNumber' | 'studbookNumber' | 'birthDate' | 'breed' | 'sex' | 'hairType' | 'hairColor' | 'size' | 'fatherId' | 'motherId' | 'awardsLength1' | 'awardsLength2' | 'awardsLength3' | 'awardsLength4' | 'notes'
+    type SlideoverField = 'IDENTITY' | 'BIRTH' | 'PARENTS' | 'APPEARANCE' | 'NOTES' | 'ACTIONS' | 'name' | 'kennelNameFirst' | 'kennel' | 'chipNumber' | 'studbookNumber' | 'birthDate' | 'breed' | 'sex' | 'hairType' | 'hairColor' | 'size' | 'fatherId' | 'motherId' | 'awardsLength1' | 'awardsLength2' | 'awardsLength3' | 'awardsLength4' | 'notes'
     type Callback = (animal: Partial<AnimalStructure>) => void
 
     const isOpen = ref(false)
