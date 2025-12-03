@@ -1,0 +1,35 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+
+env:
+  IMAGE: gencestor
+  REGISTRY: ghcr.io/freuwort
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Build Image
+        uses: redhat-actions/buildah-build@v2
+        id: build
+        with:
+          image: ${{ env.IMAGE }}
+          containerfiles: |
+            ./containerfile
+          oci: true
+          extra-args: |
+            --ulimit nofile=65536:65536
+      - name: Push Image To GHCR
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build.outputs.image }}
+          tags: ${{ steps.build.outputs.tags }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
