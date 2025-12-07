@@ -7,7 +7,7 @@ on:
 
 env:
   IMAGE: gencestor
-  REGISTRY: ghcr.io/freuwoert
+  REGISTRY: ghcr.io/freuwort
 
 permissions:
   contents: read
