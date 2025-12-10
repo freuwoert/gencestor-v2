@@ -94,14 +94,13 @@
 
                 
                 <template v-if="!hidden.includes('NOTES')">
-                    <span class="mt-6 mb-2">Bemerkungen und Auszeichnungen</span>
+                    <span class="mt-6 mb-2">Auszeichnungen und Bemerkungen</span>
                     <div class="flex flex-col gap-4">
-                        <UTextarea v-model="form.notes" autoresize placeholder="Bemerkungen" leading-icon="i-lucide-notebook" :disabled="disabled.includes('notes')" v-if="!hidden.includes('notes')" />
-                        <USeparator />
                         <UTextarea v-model="form.awardsLength1" autoresize placeholder="Auszeichnungen 1. Gen" leading-icon="i-lucide-award" :disabled="disabled.includes('awardsLength1')" v-if="!hidden.includes('awardsLength1')" />
                         <UTextarea v-model="form.awardsLength2" autoresize placeholder="Auszeichnungen 2. Gen" leading-icon="i-lucide-award" :disabled="disabled.includes('awardsLength2')" v-if="!hidden.includes('awardsLength2')" />
                         <UTextarea v-model="form.awardsLength3" autoresize placeholder="Auszeichnungen 3. Gen" leading-icon="i-lucide-award" :disabled="disabled.includes('awardsLength3')" v-if="!hidden.includes('awardsLength3')" />
                         <UTextarea v-model="form.awardsLength4" autoresize placeholder="Auszeichnungen 4. Gen" leading-icon="i-lucide-award" :disabled="disabled.includes('awardsLength4')" v-if="!hidden.includes('awardsLength4')" />
+                        <UTextarea v-model="form.notes" class="mt-4" autoresize placeholder="Bemerkungen" leading-icon="i-lucide-notebook" :disabled="disabled.includes('notes')" v-if="!hidden.includes('notes')" />
                     </div>
                 </template>
             </div>
@@ -142,6 +141,7 @@
     const title = computed(() => isEditing.value ? 'Tier bearbeiten' : 'Neues Tier erstellen')
     const description = computed(() => form.value.displayName || 'Unbennnt')
     const animalDataStore = useAnimalDataStore()
+    const pedigreeDataStore = usePedigreeDataStore()
 
     const emit = defineEmits([
         'saved',

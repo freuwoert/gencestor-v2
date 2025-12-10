@@ -3,18 +3,32 @@
         <template #body>
             <UTabs :items="tabs" variant="link" :ui="{root: 'gap-0', content: 'flex flex-col gap-2 py-4 px-6 h-120 overflow-y-auto', list: 'px-4 py-0', trigger: 'py-5'}">
                 <template #general>
-                    <UInput v-model="form.breeder" placeholder="Züchter" leading-icon="i-lucide-user" />
-                    <UInput v-model="form.title" placeholder="Wurfname" leading-icon="i-lucide-type" />
-                    <UInput v-model="form.kennel" placeholder="Zwinger" leading-icon="i-lucide-house">
-                        <template #trailing>
-                            <UTooltip arrow text="Zwingername zuerst">
-                                <div><USwitch v-model="form.kennelNameFirst" /></div>
-                            </UTooltip>
-                        </template>
-                    </UInput>
-                    <UInputMenu v-model="(form.breed as string)" :items="animalDataStore.breeds" createItem="always" @create="onCreateBreed" placeholder="Rasse" leading-icon="i-lucide-dog"/>
-                    <UInput type="date" v-model="(form.birthDate as null)" leading-icon="i-lucide-calendar"/>
-                    <UTextarea v-model="form.address" placeholder="Züchter / Adresse" leading-icon="i-lucide-info" />
+                    <div class="flex items-center gap-1">
+                        <UInputMenu class="flex-1" v-model="(form.breeder as string)" :items="pedigreeDataStore.breeders" createItem="always" @create="onCreateBreeder" placeholder="Züchter" leading-icon="i-lucide-user"/>
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Züchter entfernen" @click="form.breeder = null" :disabled="!form.breeder" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInputMenu class="flex-1" v-model="(form.kennel as string)" :items="animalDataStore.kennels" createItem="always" @create="onCreateKennel" placeholder="Zwinger" leading-icon="i-lucide-house" />
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Zwinger entfernen" @click="form.kennel = null" :disabled="!form.kennel" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInput class="flex-1" v-model="form.title" placeholder="Wurfname" leading-icon="i-lucide-type" />
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Wurfname entfernen" @click="form.title = null" :disabled="!form.title" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UCheckbox class="flex-1 mr-8" variant="card" v-model="form.kennelNameFirst" label="Zwingername zuerst" :ui="{root: 'px-2 py-0 h-8 rounded-md items-center'}"/>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UTextarea class="flex-1 mr-8" v-model="form.address" autoresize placeholder="Züchter / Adresse" leading-icon="i-lucide-map-pin" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInputMenu class="flex-1" v-model="(form.breed as string)" :items="animalDataStore.breeds" createItem="always" @create="onCreateBreed" placeholder="Rasse" leading-icon="i-lucide-dog"/>
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Rasse entfernen" @click="form.breed = null" :disabled="!form.breed" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInput class="flex-1" type="date" v-model="(form.birthDate as null)" leading-icon="i-lucide-calendar"/>
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Geburtsdatum entfernen" @click="form.birthDate = null" :disabled="!form.birthDate" />
+                    </div>
                 </template>
                 <template #puppies>
                     <div class="flex items-center gap-2" v-for="animal in form.animals" :key="animal.tempId">
@@ -63,10 +77,11 @@
 </template>
 
 <script lang="ts" setup>
-    const animalDataStore = useAnimalDataStore()
     const isOpen = ref(false)
     const isLoading = ref(false)
     const form = ref<any>({})
+    const animalDataStore = useAnimalDataStore()
+    const pedigreeDataStore = usePedigreeDataStore()
 
     const title = computed(() => form.value.title || '.atd Datei importieren')
 
@@ -94,9 +109,19 @@
         },
     ])
 
-    function onCreateBreed(newBreed: string) {
-        animalDataStore.breeds.push(newBreed)
-        form.value.breed = newBreed
+    function onCreateBreeder(item: string) {
+        pedigreeDataStore.breeders.push(item)
+        form.value.breeder = item
+    }
+
+    function onCreateKennel(item: string) {
+        animalDataStore.kennels.push(item)
+        form.value.kennel = item
+    }
+
+    function onCreateBreed(item: string) {
+        animalDataStore.breeds.push(item)
+        form.value.breed = item
     }
 
 

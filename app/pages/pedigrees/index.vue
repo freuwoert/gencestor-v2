@@ -73,8 +73,13 @@
             cell: info => info.getValue() || '—',
         },
         {
-            accessorKey: 'displayName',
-            header: 'Ahnentafel',
+            accessorKey: 'kennel',
+            header: 'Zwinger',
+            cell: info => info.getValue() || '—',
+        },
+        {
+            accessorKey: 'title',
+            header: 'Wurfname',
             cell: info => info.getValue() || '—',
         },
         {

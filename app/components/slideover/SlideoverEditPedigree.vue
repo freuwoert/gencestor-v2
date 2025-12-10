@@ -2,10 +2,21 @@
     <USlideover :title="title" v-model:open="isOpen">
         <template #body>
             <div class="flex flex-col">
-                <UInput class="mt-2" v-model="form.breeder" placeholder="Züchter" leading-icon="i-lucide-user" />
-                <UInput class="mt-4" v-model="form.title" placeholder="Wurfname" leading-icon="i-lucide-tag" />
-                <UInput class="mt-4" v-model="form.kennel" placeholder="Zwingername" leading-icon="i-lucide-book-user" />
-                <UTextarea class="mt-4" v-model="form.address" placeholder="Adresse" leading-icon="i-lucide-map-pin" />
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-1">
+                        <UInputMenu class="flex-1" v-model="(form.breeder as string)" :items="pedigreeDataStore.breeders" createItem="always" @create="onCreateBreeder" placeholder="Züchter" leading-icon="i-lucide-user"/>
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Züchter entfernen" @click="form.breeder = null" :disabled="!form.breeder" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInputMenu class="flex-1" v-model="(form.kennel as string)" :items="animalDataStore.kennels" createItem="always" @create="onCreateKennel" placeholder="Zwinger" leading-icon="i-lucide-house"/>
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Zwinger entfernen" @click="form.kennel = null" :disabled="!form.kennel" />
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <UInput class="flex-1" v-model="form.title" placeholder="Wurfname" leading-icon="i-lucide-type" />
+                        <UButton color="neutral" variant="ghost" size="sm" icon="i-lucide-x" aria-label="Wurfname entfernen" @click="form.title = null" :disabled="!form.title" />
+                    </div>
+                    <UTextarea v-model="form.address" autoresize placeholder="Züchter / Adresse" leading-icon="i-lucide-map-pin" />
+                </div>
             </div>
         </template>
 
@@ -25,10 +36,14 @@
 </template>
 
 <script lang="ts" setup>
+    import type { PedigreeResource, PedigreeStructure } from '~~/types/pedigree'
+
     const isOpen = ref(false)
     const isLoading = ref(false)
     const isEditing = computed(() => form.value.id != null)
     const title = computed(() => isEditing.value ? 'Ahnentafel bearbeiten' : 'Neue Ahnentafel erstellen')
+    const animalDataStore = useAnimalDataStore()
+    const pedigreeDataStore = usePedigreeDataStore()
 
     const emit = defineEmits([
         'saved',
@@ -37,7 +52,7 @@
         'closed',
     ])
 
-    const form = ref<Partial<Pedigree>>({})
+    const form = ref<Partial<PedigreeStructure>>({})
 
     const saveItems = ref([
         { label: 'Speichern und Neu', icon: 'i-lucide-plus', onSelect: () => save('createNew') },
@@ -47,7 +62,19 @@
 
 
 
-    function open(pedigree: Partial<Pedigree> = {}) {
+    function onCreateBreeder(item: string) {
+        pedigreeDataStore.breeders.push(item)
+        form.value.breeder = item
+    }
+
+    function onCreateKennel(item: string) {
+        animalDataStore.kennels.push(item)
+        form.value.kennel = item
+    }
+
+
+
+    function open(pedigree: Partial<PedigreeResource> = {}) {
         reset()
         form.value = {
             ...form.value,
