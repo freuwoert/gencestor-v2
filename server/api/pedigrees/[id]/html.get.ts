@@ -87,7 +87,8 @@ async function render(data: any, options: { printFront?: boolean; printBack?: bo
         fonts: {
             matura: await loadAssetAsDataUrl('fonts/Matura.ttf'),
             open_sans_semibold: await loadAssetAsDataUrl('fonts/OpenSans-SemiBold.ttf'),
-            open_sans_extrabold: await loadAssetAsDataUrl('fonts/OpenSans-ExtraBold.ttf'),
+            open_sans_bold: await loadAssetAsDataUrl('fonts/OpenSans-Bold.ttf'),
+            // open_sans_extrabold: await loadAssetAsDataUrl('fonts/OpenSans-ExtraBold.ttf'),
         },
     }
 
